@@ -7,8 +7,6 @@ if ! test -e installed; then
     touch installed
 fi
 
-./run.sh
-
-if ! $? eq 0; then
+if ! ./run.sh; then
     rm installed
 fi
