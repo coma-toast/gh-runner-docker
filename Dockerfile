@@ -12,15 +12,15 @@ RUN apt-get install -y curl tar bash sudo apt-utils
 RUN apt-get -y install tzdata
 
 # Install docker so we can build docker images in the pipeline
-RUN curl -sSL https://get.docker.com/ | sh
+# RUN curl -sSL https://get.docker.com/ | sh
 
 # Set up destination folder and user
 RUN mkdir actions-runner
 RUN useradd -r runner
 RUN adduser runner sudo
 RUN chmod 777 actions-runner
-RUN mkdir /home/runner
-RUN chown runner:docker /home/runner
+# RUN mkdir /home/runner
+# RUN chown runner:docker /home/runner
 
 # Add the runner user to sudoers
 RUN mkdir -p /etc/sudoers.d \
@@ -35,6 +35,8 @@ RUN curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/act
 RUN curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh; chmod +x dotnet-install.sh
 RUN tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
 RUN ./bin/installdependencies.sh
+
+# RUN service docker start
 
 USER runner
 

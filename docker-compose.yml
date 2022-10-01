@@ -1,9 +1,21 @@
 version: "3"
 
 services:
+    docker-daemon:
+        container_name: docker-daemon
+        image: docker:dind
+        networks:
+            runner-network:
+                aliases:
+                    - "docker"
+        privileged: true
+
     runner:
         build: .
+        depends_on:
+            - "docker-daemon"
         environment:
+            - DOCKER_HOST=tcp://docker:2375
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
             - TOKEN=ADLV3FZDIBCFDCZB3PZTLDLDG64HM
@@ -13,3 +25,7 @@ services:
 
 volumes:
     data:
+
+networks:
+    runner-network:
+        name: runner-network
