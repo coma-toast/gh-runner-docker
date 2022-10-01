@@ -14,19 +14,27 @@ RUN apt-get -y install tzdata
 # Install docker so we can build docker images in the pipeline
 RUN curl -sSL https://get.docker.com/ | sh
 
+# Set up destination folder and user
 RUN mkdir actions-runner
 RUN useradd -r runner
 RUN adduser runner sudo
 RUN chmod 777 actions-runner
+RUN mkdir /home/runner
+RUN chown runner:docker /home/runner
 
+# Add the runner user to sudoers
 RUN mkdir -p /etc/sudoers.d \
         && echo "runner ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/runner \
         && chmod 0440 /etc/sudoers.d/runner
 
-RUN cd actions-runner; curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/actions/runner/releases/download/v${GHVERSION}/actions-runner-linux-x64-${GHVERSION}.tar.gz
-RUN cd actions-runner; curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh; chmod +x dotnet-install.sh
-RUN cd actions-runner; tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
-RUN cd actions-runner; ./bin/installdependencies.sh
+# Move to the destination folder
+WORKDIR /actions-runner
+
+# Get the files and 
+RUN curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/actions/runner/releases/download/v${GHVERSION}/actions-runner-linux-x64-${GHVERSION}.tar.gz
+RUN curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh; chmod +x dotnet-install.sh
+RUN tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
+RUN ./bin/installdependencies.sh
 
 USER runner
 
