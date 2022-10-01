@@ -10,7 +10,6 @@ services:
         volumes:
             - data:/actions-runner
             - ./EntryPoint.sh:/EntryPoint.sh
-            - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
     data:

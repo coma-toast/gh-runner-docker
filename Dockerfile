@@ -18,8 +18,6 @@ RUN curl -sSL https://get.docker.com/ | sh
 RUN mkdir actions-runner
 RUN useradd -r runner
 RUN adduser runner sudo
-RUN groupadd docker
-RUN usermod -aG docker runner
 RUN chmod 777 actions-runner
 RUN mkdir /home/runner
 RUN chown runner:docker /home/runner
