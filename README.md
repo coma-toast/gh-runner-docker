@@ -1,6 +1,6 @@
 # gh-runner-docker
 
-A Docker image for Github Actions Runners
+#### A Docker image for Github Actions Runners
 
 Have multiple repos and want to use private runners? Put all your runners in one docker-compose file to spin them all up in one shot.
 
@@ -23,3 +23,7 @@ services:
 volumes:
     data:
 ```
+
+### Build Docker image
+
+`docker compose build --no-cache --build-arg GHVERSION=2.297.0`
