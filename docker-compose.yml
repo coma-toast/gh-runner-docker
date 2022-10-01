@@ -1,13 +1,15 @@
 version: "3"
 
 services:
-  runner:
-    build: .
-    environment:
-      - VERSION=2.297.0
-      - USERNAME=coma-toast
-      - REPO=gh-runner-docker
-      - TOKEN=ADLV3F4VPZR7XXS372FHJZTDGYMJA
-    volumes:
-      - ./temp:/temp
-      - ./EntryPoint.sh:/EntryPoint.sh
+    runner:
+        build: .
+        environment:
+            - USERNAME=coma-toast
+            - REPO=gh-runner-docker
+            - TOKEN=ADLV3FZDIBCFDCZB3PZTLDLDG64HM
+        volumes:
+            - data:/actions-runner
+            - ./EntryPoint.sh:/EntryPoint.sh
+
+volumes:
+    data:
