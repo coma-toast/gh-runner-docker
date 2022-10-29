@@ -11,14 +11,17 @@ services:
         privileged: true
 
     runner:
-        build: .
+        build:
+            context: .
+            args:
+                GHVERSION: 2.298.2
         depends_on:
             - "docker-daemon"
         environment:
             - DOCKER_HOST=tcp://docker:2375
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
-            - TOKEN=ADLV3FZDIBCFDCZB3PZTLDLDG64HM
+            - TOKEN=ADLV3F4STQJ223UHWZS4FMDDLSSIY
         volumes:
             - data:/actions-runner
             - ./EntryPoint.sh:/EntryPoint.sh
