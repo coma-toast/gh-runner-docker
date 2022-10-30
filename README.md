@@ -1,4 +1,4 @@
-# gh-runner-docker
+# GitHub Actions Runner Docker
 
 #### A Docker image for Github Actions Runners
 
