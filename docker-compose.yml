@@ -18,7 +18,7 @@ services:
         depends_on:
             - "docker-daemon"
         environment:
-            - DOCKER_HOST=tcp://docker-daemon:2376
+            - DOCKER_HOST=tcp://docker-daemon:2375
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
             - TOKEN=ADLV3F4STQJ223UHWZS4FMDDLSSIY
