@@ -18,13 +18,14 @@ services:
         depends_on:
             - "docker-daemon"
         environment:
-            # - DOCKER_HOST=tcp://docker-daemon:2376
+            - DOCKER_HOST=tcp://docker-daemon:2376
+            - DOCKER_TLS_CERTDIR=""
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
             - TOKEN=ADLV3F4STQJ223UHWZS4FMDDLSSIY
         volumes:
             - data:/actions-runner
-            - /var/run/docker.sock:/var/run/docker.sock
+            # - /var/run/docker.sock:/var/run/docker.sock
             - ./EntryPoint.sh:/EntryPoint.sh
         networks:
             runner-network:
