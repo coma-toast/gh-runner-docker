@@ -25,6 +25,10 @@ services:
         volumes:
             - data:/actions-runner
             - ./EntryPoint.sh:/EntryPoint.sh
+        networks:
+            runner-network:
+                aliases:
+                    - "docker"
 
 volumes:
     data:
