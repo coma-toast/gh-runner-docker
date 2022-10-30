@@ -1,36 +1,36 @@
 version: "3"
 
 services:
-    docker-daemon:
-        container_name: docker-daemon
-        image: docker:dind
-        networks:
-            runner-network:
-                aliases:
-                    - "docker"
-        privileged: true
+    # docker-daemon:
+    #     container_name: docker-daemon
+    #     image: docker:dind
+    #     networks:
+    #         runner-network:
+    #             aliases:
+    #                 - "docker"
+    #     privileged: true
 
     runner:
         build:
             context: .
             args:
                 GHVERSION: 2.298.2
-        depends_on:
-            - "docker-daemon"
+        # depends_on:
+        #     - "docker-daemon"
         environment:
-            - DOCKER_HOST=tcp://docker-daemon:2376
-            - DOCKER_TLS_CERTDIR=""
+            # - DOCKER_HOST=tcp://docker-daemon:2376
+            # - DOCKER_TLS_CERTDIR=""
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
             - TOKEN=ADLV3F4STQJ223UHWZS4FMDDLSSIY
         volumes:
             - data:/actions-runner
-            # - /var/run/docker.sock:/var/run/docker.sock
+            - /var/run/docker.sock:/var/run/docker.sock
             - ./EntryPoint.sh:/EntryPoint.sh
-        networks:
-            runner-network:
-                aliases:
-                    - "docker"
+        # networks:
+        #     runner-network:
+        #         aliases:
+        #             - "docker"
 
 volumes:
     data:
