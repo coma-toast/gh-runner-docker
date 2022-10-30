@@ -2,30 +2,41 @@
 
 #### A Docker image for Github Actions Runners
 
-Have multiple repos and want to use private runners? Put all your runners in one docker-compose file to spin them all up in one shot.
+Have multiple repos and want to use private runners? Put all your runners in one `docker-compose.yml` file to spin them all up in one shot.
 
-**_Note: The token is only valid for 1 hour. You can remove the token from the compose file after its registered if needed._**
+**_Note: The token is only valid for 1 hour._**
 
 Example docker-compose.yml:
 
 ```yaml
-version: "3"
-
+version: "3.7"
 services:
-    runner:
-        build: .
+    gh-runner-docker:
+        image: jasonsdocker2018/gh-runner-docker
         environment:
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
-            - TOKEN=<generate token from Settings->Actions->Runners>
+            - TOKEN=the token
         volumes:
-            - data:/actions-runner
-            - ./EntryPoint.sh:/EntryPoint.sh
-
+            - gh-runner-docker:/actions-runner
+            - /var/run/docker.sock:/var/run/docker.sock
+    another-repo-runner:
+        image: jasonsdocker2018/gh-runner-docker
+        environment:
+            - USERNAME=coma-toast
+            - REPO=another-repo
+            - TOKEN=the token
+        volumes:
+            - another-repo-runner:/actions-runner
+            - /var/run/docker.sock:/var/run/docker.sock
 volumes:
-    data:
+    gh-runner-docker:
+    another-repo-runner:
 ```
 
 ### Build Docker image
 
-`docker compose build --no-cache --build-arg GHVERSION=2.297.0`
+Manually:  
+`docker compose build --no-cache --build-arg GHVERSION=2.298.2`
+Or just spin up the docker-compose.yml in this repo:  
+`docker compose up`
