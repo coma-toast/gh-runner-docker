@@ -24,8 +24,7 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                   images: jasonsdocker2018/gh-runner-docker
-                  tags: |
-                      type=ref,event=tag
+                  flavor: auto
 
             - name: Build and push Docker image
               uses: docker/build-push-action@v3
