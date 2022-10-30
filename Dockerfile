@@ -6,6 +6,9 @@ ARG GHVERSION
 # So the tzdata install doesn't stop to prompt
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Copy EntryPoint
+COPY ./EntryPoint.sh /EntryPoint.sh
+
 # Install dependencies
 RUN apt-get update
 RUN apt-get install -y curl tar bash sudo apt-utils
@@ -32,7 +35,8 @@ WORKDIR /actions-runner
 
 # Get the files and 
 RUN curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/actions/runner/releases/download/v${GHVERSION}/actions-runner-linux-x64-${GHVERSION}.tar.gz
-RUN curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh; chmod +x dotnet-install.sh
+RUN curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh
+RUN chmod +x dotnet-install.sh
 RUN tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
 RUN ./bin/installdependencies.sh
 
