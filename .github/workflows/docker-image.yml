@@ -32,4 +32,4 @@ jobs:
                   push: true
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
-                  build-args: GHVERSION:2.297.0
+                  build-args: GHVERSION=2.297.0
