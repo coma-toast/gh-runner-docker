@@ -37,6 +37,6 @@ volumes:
 ### Build Docker image
 
 Manually:  
-`docker compose build --no-cache --build-arg GHVERSION=2.298.2`
+`docker compose build --no-cache --build-arg GHVERSION=2.298.2`  
 Or just spin up the docker-compose.yml in this repo:  
 `docker compose up`
