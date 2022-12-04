@@ -12,7 +12,7 @@ COPY ./EntryPoint.sh /EntryPoint.sh
 # Install dependencies
 RUN apt-get update
 RUN apt-get install -y curl tar bash sudo apt-utils
-RUN apt-get -y install tzdata openssh-client rsync
+RUN apt-get -y install tzdata
 
 # Install docker so we can build docker images in the pipeline
 RUN curl -sSL https://get.docker.com/ | sh
