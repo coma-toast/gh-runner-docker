@@ -5,7 +5,7 @@ services:
         build:
             context: .
             args:
-                GHVERSION: 2.298.2
+                GHVERSION: 2.303.0
         environment:
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
