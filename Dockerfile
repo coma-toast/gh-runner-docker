@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 ubuntu:20.04 
 
 # VERSION conflicts with the docker install script
-ARG GHVERSION
+RUN export GHVERSION=$(curl -L  https://api.github.com/repos/actions/runner/releases/latest | jq .name | awk '{sub(/v/, ""); print}')
 
 # So the tzdata install doesn't stop to prompt
 ENV DEBIAN_FRONTEND=noninteractive

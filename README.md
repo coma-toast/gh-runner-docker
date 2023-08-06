@@ -38,6 +38,12 @@ volumes:
 ### Build Docker image
 
 Manually:  
-`docker compose build --no-cache --build-arg GHVERSION=2.299.1`  
+`docker compose build --no-cache`  
 Or just spin up the docker-compose.yml in this repo:  
 `docker compose up`
+
+### TODO
+
+Auto generate tokens via api using personal access token
+
+-   https://www.narenvadapalli.com/blog/generating-token-for-github-runner-registration/

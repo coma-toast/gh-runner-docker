@@ -4,8 +4,6 @@ services:
     runner:
         build:
             context: .
-            args:
-                GHVERSION: 2.305.0
         environment:
             - USERNAME=coma-toast
             - REPO=gh-runner-docker
@@ -14,4 +12,4 @@ services:
             - data:/actions-runner
             - /var/run/docker.sock:/var/run/docker.sock
 volumes:
-    dat5:
+    data:
