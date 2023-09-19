@@ -1,8 +1,5 @@
 FROM --platform=linux/amd64 ubuntu:20.04 
 
-# VERSION conflicts with the docker install script
-RUN export GHVERSION=$(curl -L  https://api.github.com/repos/actions/runner/releases/latest | jq .name | awk '{sub(/v/, ""); print}')
-
 # So the tzdata install doesn't stop to prompt
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -11,7 +8,7 @@ COPY ./EntryPoint.sh /EntryPoint.sh
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y curl tar bash sudo apt-utils
+RUN apt-get install -y curl tar bash sudo apt-utils jq
 RUN apt-get -y install tzdata rsync openssh-client git
 
 # Install docker so we can build docker images in the pipeline
@@ -34,10 +31,10 @@ RUN mkdir -p /etc/sudoers.d \
 WORKDIR /actions-runner
 
 # Get the files and 
-RUN curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/actions/runner/releases/download/v${GHVERSION}/actions-runner-linux-x64-${GHVERSION}.tar.gz
+RUN export GHVERSION=$(curl -L  https://api.github.com/repos/actions/runner/releases/latest | jq .name | awk '{sub(/v/, ""); print}'); curl -o actions-runner-linux-x64-$GHVERSION.tar.gz -L https://github.com/actions/runner/releases/download/v${GHVERSION}/actions-runner-linux-x64-${GHVERSION}.tar.gz
 RUN curl -o dotnet-install.sh -L https://dot.net/v1/dotnet-install.sh
 RUN chmod +x dotnet-install.sh
-RUN tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
+RUN export GHVERSION=$(curl -L  https://api.github.com/repos/actions/runner/releases/latest | jq .name | awk '{sub(/v/, ""); print}'); tar xzf ./actions-runner-linux-x64-$GHVERSION.tar.gz
 RUN ./bin/installdependencies.sh
 
 # RUN service docker start
